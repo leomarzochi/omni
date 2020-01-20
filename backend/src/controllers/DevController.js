@@ -48,4 +48,16 @@ module.exports = {
 
     return res.status(200).json(dev);
   },
+
+  async destroy(req, res) {
+    const { id } = req.body;
+
+    await Dev.findOne({ _id: id }, (err, dev) => {
+      dev.remove();
+    });
+
+    const devs = await Dev.find();
+
+    return res.json(devs);
+  },
 };
